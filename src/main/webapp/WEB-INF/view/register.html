@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>川区客运中心售票系统 - 注册</title>
+
+    <link rel="shortcut icon" href="${ctxPath}/static/favicon.ico">
+    <link href="${ctxPath}/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${ctxPath}/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="${ctxPath}/static/css/animate.css" rel="stylesheet">
+    <link href="${ctxPath}/static/css/style.css?v=4.1.0" rel="stylesheet">
+    <script>if (window.top !== window.self) {
+        window.top.location = window.location;
+    }</script>
+    <script src="${ctxPath}/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="${ctxPath}/static/js/bootstrap.min.js?v=3.3.6"></script>
+</head>
+
+<body class="gray-bg">
+
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+    <div style="padding: 100px 0px;">
+        <div>
+            <!--<h1 class="logo-name">社区</h1>-->
+        </div>
+        <h3>欢迎使用 川区客运中心售票系统</h3>
+        <br/>
+        <h4 style="color: red;">${tips!}</h4>
+        <form class="m-t" role="form" id="" action="${ctxPath}/register" method="post">
+            <div class="form-group">
+                <input type="text" name="account" class="form-control" placeholder="账户" required="required">
+            </div>
+
+            <div class="form-group">
+                <select id="sex" name="sex"  underline="true" class="form-control">
+                <option value="1">男</option>
+                <option value="2">女</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" class="form-control" placeholder="密码" required="required">
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" class="form-control" placeholder="邮箱" required="required">
+            </div>
+            <div class="form-group">
+                <input type="text" name="name" class="form-control" placeholder="姓名" required="required">
+            </div>
+            <div class="form-group">
+                <input type="text" name="phone" class="form-control" placeholder="电话" required="required">
+            </div>
+            <div class="form-group">
+                <input id="birthday" name="birthday" placeholder="出生日期" underline="true" type="date"
+                clickFun="laydate({istime: false, format: 'YYYY-MM-DD'})" class="form-control"/>
+            </div>
+
+            <button type="submit" class="btn btn-primary block full-width m-b">注 册</button>
+            <button type="button" onclick="location.href='${ctxPath}/login'" class="btn btn-primary block full-width m-b">登 陆</button>
+            </p>
+        </form>
+    </div>
+</div>
+
+
+</body>
+
+</html>

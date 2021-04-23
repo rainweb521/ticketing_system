@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.system.dao.TrainsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.Trains">
+        <id column="id" property="id" />
+        <result column="departureTime" property="departureTime" />
+        <result column="onSite" property="onSite" />
+        <result column="arrivedSite" property="arrivedSite" />
+        <result column="models" property="models" />
+        <result column="moreTicket" property="moreTicket" />
+        <result column="fares" property="fares" />
+        <result column="licensePlate" property="licensePlate" />
+        <result column="flightNo" property="flightNo" />
+        <result column="mileage" property="mileage" />
+        <result column="seatType" property="seatType" />
+        <result column="status" property="status" />
+        <result column="addDate" property="addDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, departureTime, onSite, arrivedSite, models, moreTicket, fares, licensePlate, flightNo, mileage, seatType, status, addDate
+    </sql>
+
+</mapper>

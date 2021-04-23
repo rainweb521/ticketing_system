@@ -1,0 +1,186 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-12" id="">
+                    <div class="raw">
+                        <div class="col-sm-3">
+                            <#NameCon id="flightno" name="班次号"  />
+                        </div>
+                        <div class="col-sm-5">
+                            <#TimeCon id="trainsdate" name="出发日期" isTime="false"/>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <#button btnCss="info" name="搜索" icon="fa-plus" clickFun="BuyTrainsInfoDlg.search()"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 b-r">
+
+                    <input id="orderid" name="orderid" value="${orderid}" type="hidden" underline="true"/>
+                    <input id="id" name="id" value="${item.id}" type="hidden" underline="true"/>
+                    <#input id="departuretime" name="发车时间" value="${item.departuretime}" type="time" underline="true"  disabled="disabled"/>
+                    <#input id="onsite" name="出发站点" value="${item.onsite}" underline="true" disabled="disabled"/>
+                    <#input id="arrivedsite" name="达到站点" value="${item.arrivedsite}" underline="true" disabled="disabled"/>
+                    <#input id="models" name="车型" value="${item.models}" underline="true" disabled="disabled"/>
+                    <input id="moreticket" name="余票" value="${item.moreticket}" underline="true" type="hidden"/>
+                    <#input id="moreticket2" name="余票" value="${item.moreticket}" underline="true" disabled="disabled"/>
+                    <#input id="votes" name="购买张数" underline="true"/>
+                    <#input id="" name="您的余额" value="${user.balance}" underline="true"  disabled="disabled"/>
+                </div>
+
+                <div class="col-sm-6">
+                    <#input id="licenseplate" name="车牌号" value="${item.licenseplate}" underline="true" disabled="disabled"/>
+                    <#input id="flightno2" name="班次号" value="${item.flightno}" underline="true" disabled="disabled"/>
+                    <#input id="mileage" name="里程" value="${item.mileage}" underline="true" disabled="disabled"/>
+                    <#input id="seatyype" name="座位类型" value="${item.seatyype}" underline="true" disabled="disabled"/>
+                    <#input id="fares" name="票价" value="${item.fares}"  disabled="disabled"/>
+                </div>
+
+
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="BuyTrainsInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="BuyTrainsInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script >
+    laydate.render({
+        elem: '#trainsdate'
+    });
+    /**
+     * 初始化通知详情对话框
+     */
+    var BuyTrainsInfoDlg = {
+        houseInfoData: {},
+        editor: null,
+        validateFields: {
+            title: {
+                validators: {
+                    notEmpty: {
+                        message: '标题不能为空'
+                    }
+                }
+            }
+        }
+    };
+
+    /**
+     * 设置对话框中的数据
+     */
+    BuyTrainsInfoDlg.set = function (key, val) {
+        this.houseInfoData[key] = (typeof value == "undefined") ? $("#" + key).val() : value;
+        return this;
+    }
+    /**
+     * 关闭此对话框
+     */
+    BuyTrainsInfoDlg.close = function () {
+        parent.layer.close(window.parent.TableVar.layerIndex);
+    }
+    /**
+     * 清除数据
+     */
+    BuyTrainsInfoDlg.clearData = function () {
+        this.houseInfoData = {};
+    }
+    /**
+     * 收集数据
+     */
+    BuyTrainsInfoDlg.collectData = function () {
+        this
+            .set('id')
+            .set('orderid')
+            .set('departuretime')
+            .set('onsite')
+            .set('arrivedsite')
+            .set('models')
+            .set('moreticket')
+            .set('trainsdate')
+            .set('fares')
+            .set('licenseplate')
+            .set('flightno')
+            .set('mileage')
+            .set('seatyype')
+            .set('votes')
+            .set('adddate');
+
+    }
+
+    BuyTrainsInfoDlg.search = function () {
+
+
+
+        var flightno = document.getElementById('flightno').value;
+        var trainsdate = document.getElementById('trainsdate').value;
+
+        var date = new Date();
+        var nowMonth = date.getMonth() + 1;
+        var strDate = date.getDate();
+        var seperator = "-";
+        if (nowMonth >= 1 && nowMonth <= 9) {
+            nowMonth = "0" + nowMonth;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var nowDate = date.getFullYear() + seperator + nowMonth + seperator + strDate;
+        if (nowDate>trainsdate){
+            Feng.info("请选择今天及以后的车次！");
+            return false;
+        }
+
+
+        var ajax = new $ax(Feng.ctxPath + "/trains/view?trainsdate="+trainsdate+"&flightno="+flightno, function(data) {
+            document.getElementById('id').value = data['id'];
+            document.getElementById('departuretime').value = data['departuretime'];
+            document.getElementById('onsite').value = data['onsite'];
+            document.getElementById('arrivedsite').value = data['arrivedsite'];
+            document.getElementById('models').value = data['models'];
+            document.getElementById('moreticket').value = data['moreticket'];
+            document.getElementById('moreticket2').value = data['moreticket'];
+            document.getElementById('fares').value = data['fares'];
+            document.getElementById('licenseplate').value = data['licenseplate'];
+            document.getElementById('flightno2').value = data['flightno'];
+            document.getElementById('mileage').value = data['mileage'];
+            document.getElementById('seatyype').value = data['seatyype'];
+        }, function(data) {
+            Feng.error("查询信息失败!");
+        });
+        ajax.start();
+    }
+    /**
+     * 提交修改
+     */
+    BuyTrainsInfoDlg.editSubmit = function () {
+        this.clearData();
+        this.collectData();
+        //提交信息
+        var ajax = new $ax(Feng.ctxPath + "/trains/endorseuser", function (data) {
+            Feng.success("改签成功!");
+            window.parent.Orders.table.refresh();
+            BuyTrainsInfoDlg.close();
+        }, function (data) {
+            Feng.error("改签失败!" + data.responseJSON.message + "!");
+        });
+        ajax.set(this.houseInfoData);
+        ajax.start();
+
+
+    }
+
+    $(function () {
+
+
+    });
+</script>
+@}

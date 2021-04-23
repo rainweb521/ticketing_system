@@ -1,0 +1,39 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                    <input id="id" name="id" value="${item.id}" type="hidden" underline="true"/>
+                    <#input id="departuretime" name="发车时间" value="${item.departuretime}" type="time" underline="true"/>
+                    <#input id="onsite" name="出发站点" value="${item.onsite}" underline="true"/>
+                    <#input id="arrivedsite" name="达到站点" value="${item.arrivedsite}" underline="true"/>
+                    <#input id="models" name="车型" value="${item.models}" underline="true"/>
+                    <#input id="moreticket" name="余票" value="${item.moreticket}" underline="true"/>
+                </div>
+
+                <div class="col-sm-6">
+                    <#input id="licenseplate" name="车牌号" value="${item.licenseplate}" underline="true"/>
+                    <#input id="flightno" name="班次号" value="${item.flightno}" underline="true"/>
+                    <#input id="mileage" name="里程" value="${item.mileage}" underline="true"/>
+                    <#input id="seatyype" name="座位类型" value="${item.seatyype}" underline="true"/>
+                    <#input id="fares" name="票价" value="${item.fares}" />
+
+                </div>
+
+            </div>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="TrainsInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="TrainsInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/trains/trains_info.js"></script>
+@}

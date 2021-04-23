@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.system.dao.OrdersMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.Orders">
+        <id column="id" property="id" />
+        <result column="ordernumber" property="ordernumber" />
+        <result column="trainsid" property="trainsid" />
+        <result column="status_str" property="statusStr" />
+        <result column="status" property="status" />
+        <result column="userid" property="userid" />
+        <result column="adddate" property="adddate" />
+        <result column="updatedate" property="updatedate" />
+        <result column="sreviewstatus" property="sreviewstatus" />
+        <result column="votes" property="votes" />
+        <result column="sreviewstatus_str" property="sreviewstatusStr" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, ordernumber, trainsid, status_str, status, userid, adddate, updatedate, sreviewstatus, votes, sreviewstatus_str
+    </sql>
+
+</mapper>

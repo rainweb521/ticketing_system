@@ -1,0 +1,119 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>审核管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="condition" name="订单号" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="TableVar.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="OrdersAuditToolbar2" role="group">
+                                <#button name="审核通过" icon="fa-plus" clickFun="TableVar.audit()" space="true"/>
+                        </div>
+                        <#table id="Table"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script >
+    /**
+     * 通知管理初始化
+     */
+    var TableVar = {
+        id: "Table",	//表格id
+        seItem: null,		//选中的条目
+        table: null,
+        layerIndex: -1
+    };
+
+    /**
+     * 初始化表格的列
+     */
+    TableVar.initColumn = function () {
+        return [
+            {field: 'selectItem', radio: true},
+            {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'},
+            {title: '订单号', field: 'ordernumber', visible: true, align: 'center', valign: 'middle'},
+            {title: '班次号', field: 'flightno', visible: true, align: 'center', valign: 'middle'},
+            {title: '用户名', field: 'name', visible: true, align: 'center', valign: 'middle'},
+            {title: '出发地', field: 'onsite', visible: true, align: 'center', valign: 'middle'},
+            {title: '目的地', field: 'arrivedsite', visible: true, align: 'center', valign: 'middle'},
+            // {title: '票价', field: 'fares', visible: true, align: 'center', valign: 'middle'},
+            {title: '票数', field: 'votes', visible: true, align: 'center', valign: 'middle'},
+            {title: '总价', field: 'money', visible: true, align: 'center', valign: 'middle'},
+            {title: '出发日期', field: 'trainsdate', visible: true, align: 'center', valign: 'middle'},
+            {title: '订单状态', field: 'statusStr', visible: true, align: 'center', valign: 'middle'},
+            {title: '添加日期', field: 'adddate', visible: true, align: 'center', valign: 'middle'},
+            {title: '审核状态', field: 'sreviewstatusStr', visible: true, align: 'center', valign: 'middle'}
+        ];
+    };
+
+    /**
+     * 检查是否选中
+     */
+    TableVar.check = function () {
+        var selected = $('#' + this.id).bootstrapTable('getSelections');
+        if (selected.length == 0) {
+            Feng.content("请先选中表格中的某一记录！");
+            return false;
+        } else {
+            TableVar.seItem = selected[0];
+            return true;
+        }
+    };
+
+
+
+    /**
+     * 删除通知
+     */
+    TableVar.audit = function () {
+        if (this.check()) {
+
+            var operation = function(){
+                var ajax = new $ax(Feng.ctxPath + "/orders/delete/audit", function (data) {
+                    Feng.success("通过成功!");
+                    TableVar.table.refresh();
+                }, function (data) {
+                    Feng.error("通过失败!" + data.responseJSON.message + "!");
+                });
+                ajax.set("ordersId", TableVar.seItem.id);
+                ajax.start();
+            };
+
+            Feng.confirm("是否审核通过 "  + "?", operation);
+        }
+    };
+
+    /**
+     * 查询通知列表
+     */
+    TableVar.search = function () {
+        var queryData = {};
+        queryData['condition'] = $("#condition").val();
+        // alert($("#condition").val());
+        TableVar.table.refresh({query: queryData});
+    };
+
+    $(function () {
+        var defaultColunms = TableVar.initColumn();
+        var table = new BSTable(TableVar.id, "/orders/list/audit", defaultColunms);
+        table.setPaginationType("client");
+        TableVar.table = table.init();
+
+
+    });
+
+</script>
+@}

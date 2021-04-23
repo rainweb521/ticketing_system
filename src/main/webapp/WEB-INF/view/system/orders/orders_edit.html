@@ -1,0 +1,36 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="" value="${item.id}" underline="true"/>
+                            <#input id="ordernumber" name="订单号" value="${item.ordernumber}" underline="true"/>
+                            <#input id="trainsid" name="车次id" value="${item.trainsid}" underline="true"/>
+                            <#input id="statusStr" name="订单状态str" value="${item.statusStr}" underline="true"/>
+                            <#input id="status" name="订单状态" value="${item.status}" underline="true"/>
+                            <#input id="userid" name="用户id" value="${item.userid}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="adddate" name="添加日期" value="${item.adddate}" underline="true"/>
+                            <#input id="updatedate" name="修改日期" value="${item.updatedate}" underline="true"/>
+                            <#input id="sreviewstatus" name="审核状态" value="${item.sreviewstatus}" underline="true"/>
+                            <#input id="votes" name="票数" value="${item.votes}" underline="true"/>
+                            <#input id="sreviewstatusStr" name="审核状态str" value="${item.sreviewstatusStr}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="OrdersInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="OrdersInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/orders/orders_info.js"></script>
+@}

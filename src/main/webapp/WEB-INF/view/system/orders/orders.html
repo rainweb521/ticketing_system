@@ -1,0 +1,35 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>订单管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="condition" name="订单号" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="Orders.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="OrdersTableToolbar" role="group">
+                            @if(shiro.hasPermission("/orders/orders_endorse")){
+                                <#button name="改签" icon="fa-edit" clickFun="Orders.openOrdersDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/orders/delete")){
+                                <#button name="退票" icon="fa-remove" clickFun="Orders.delete()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="OrdersTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/orders/orders.js"></script>
+@}

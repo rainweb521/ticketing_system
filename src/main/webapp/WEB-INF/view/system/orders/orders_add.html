@@ -1,0 +1,36 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="" underline="true"/>
+                            <#input id="ordernumber" name="订单号" underline="true"/>
+                            <#input id="trainsid" name="车次id" underline="true"/>
+                            <#input id="statusStr" name="订单状态str" underline="true"/>
+                            <#input id="status" name="订单状态" underline="true"/>
+                            <#input id="userid" name="用户id"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="adddate" name="添加日期" underline="true"/>
+                            <#input id="updatedate" name="修改日期" underline="true"/>
+                            <#input id="sreviewstatus" name="审核状态" underline="true"/>
+                            <#input id="votes" name="票数" underline="true"/>
+                            <#input id="sreviewstatusStr" name="审核状态str" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="OrdersInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="OrdersInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/orders/orders_info.js"></script>
+@}

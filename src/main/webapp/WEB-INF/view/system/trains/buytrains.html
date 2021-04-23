@@ -1,0 +1,39 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>车票购买</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                        <div class="col-sm-3">
+                            <#NameCon id="onsite" name="出发站点"  />
+                        </div>
+                        <div class="col-sm-3">
+                            <#NameCon id="arrivedsite" name="达到站点" />
+                        </div>
+                        <div class="col-sm-3">
+                            <#TimeCon id="adddate" name="出发日期" isTime="false"/>
+                        </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="TableVar.search()"/>
+                            </div>
+
+                        </div>
+                        <div class="hidden-xs" id="TableToolbar" role="group">
+                                <#button name="购买" icon="fa-plus" clickFun="TableVar.openAddHouse()"  space="true"/>
+                        </div>
+                        <#table id="Table"/>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/trains/buytrains.js"></script>
+
+@}
